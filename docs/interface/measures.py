@@ -1,0 +1,35 @@
+import requests
+import pandas as pd
+
+
+class Measures:
+
+    def __int__(self):
+
+        self.endpoint = 'http://environment.data.gov.uk/water-quality'
+
+    def __read(self, url):
+        """
+
+        :param url:
+        :return:
+        """
+
+        response = requests.get(url=url, timeout=10)
+
+        try:
+            if response.status_code == 200:
+                frame = pd.read_csv(filepath_or_buffer=url)
+            else:
+                frame = pd.DataFrame()
+        except RuntimeError as err:
+            raise Exception(err)
+
+        return frame
+
+    def exc(self, ):
+        """
+        
+        :return:
+        """
+
