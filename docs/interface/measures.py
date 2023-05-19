@@ -8,7 +8,8 @@ class Measures:
 
         self.endpoint = 'http://environment.data.gov.uk/water-quality'
 
-    def __read(self, url):
+    @staticmethod
+    def __read(url):
         """
 
         :param url:
@@ -29,7 +30,6 @@ class Measures:
 
     def exc(self, ):
         """
-        
+
         :return:
         """
-
