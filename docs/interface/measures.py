@@ -7,6 +7,7 @@ import pandas as pd
 
 class Measures:
     """
+    Class Measures
 
     """
 
