@@ -1,10 +1,21 @@
+"""
+Module measures.py
+"""
 import requests
 import pandas as pd
 
 
 class Measures:
+    """
+
+    """
 
     def __int__(self):
+        """
+        The constructor
+
+        :return:
+        """
 
         self.endpoint = 'http://environment.data.gov.uk/water-quality'
 
