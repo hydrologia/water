@@ -18,10 +18,10 @@ class Measures:
         :return:
         """
 
-        self.endpoint = 'http://environment.data.gov.uk/water-quality'
+        self.endpoint = 'http://environment.data.gov.uk/water-quality/{branch}'
 
     @staticmethod
-    def __read(url):
+    def __read(url) -> pd.DataFrame:
         """
 
         :param url:
@@ -40,8 +40,12 @@ class Measures:
 
         return frame
 
-    def exc(self, ):
+    def exc(self, branch: str) -> pd.DataFrame:
         """
 
         :return:
         """
+
+        url = self.endpoint.format(branch = branch)
+
+        return self.__read(url)
