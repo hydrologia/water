@@ -8,19 +8,18 @@ import src.interface.measures
 class Determinands:
     """
     Class Determinands
-        Structures the chemical determinands data
-    """
 
-    # This is an odd set-up, the normal approach, i.e., setting-up
-    # within __init__(), fails.
-    configurations = config.Config()
-    query = configurations.reference_query
+    Structures the chemical determinands data.
+    """
 
     def __init__(self):
         """
 
         :return:
         """
+
+        configurations = config.Config()
+        self.query = configurations.reference_query
 
         self.__fields = ['notation', 'label', 'definition', 'unit.label', 'unit.comment']
 
