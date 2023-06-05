@@ -2,13 +2,20 @@ import src.interface.measures
 
 
 class Determinands:
-    def __int__(self, branch: str = 'def/determinands.csv'):
+    """
+    Class Determinands
+        Structures the chemical determinands data
+    """
+
+    # This is an odd set-up, the normal approach, i.e., setting-up
+    # within __init__(), is failing.
+    __branch: str = 'def/determinands.csv'
+
+    def __int__(self):
         """
 
         :return:
         """
-
-        self.__branch = branch
 
     def exc(self):
         """
