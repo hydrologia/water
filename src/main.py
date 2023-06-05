@@ -13,7 +13,7 @@ def main():
     :return:
     """
 
-    term = src.algorithms.determinands.Determinands()
+    term = src.algorithms.references.determinands.Determinands()
     term.exc()
 
 
@@ -28,6 +28,6 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # Classes
-    import src.algorithms.determinands
+    import src.algorithms.references.determinands
 
     main()
