@@ -5,6 +5,8 @@ Module measures.py
 import requests
 import pandas as pd
 
+import config
+
 
 class Measures:
     """
@@ -13,8 +15,9 @@ class Measures:
     """
 
     # This is an odd set-up, the normal approach, i.e., setting-up
-    # within __init__(), is failing.
-    endpoint: str = 'http://environment.data.gov.uk/water-quality/{branch}'
+    # within __init__(), fails.
+    configurations = config.Config()
+    endpoint = configurations.endpoint
 
     def __int__(self):
         """
