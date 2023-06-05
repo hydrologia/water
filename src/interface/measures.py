@@ -46,6 +46,6 @@ class Measures:
         :return:
         """
 
-        url = self.endpoint.format(branch = branch)
+        url = self.endpoint.format(branch=branch)
 
         return self.__read(url)
