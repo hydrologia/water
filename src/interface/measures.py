@@ -14,17 +14,15 @@ class Measures:
 
     """
 
-    # This is an odd set-up, the normal approach, i.e., setting-up
-    # within __init__(), fails.
-    configurations = config.Config()
-    endpoint = configurations.endpoint
-
-    def __int__(self):
+    def __init__(self):
         """
         The constructor
 
         :return:
         """
+
+        configurations = config.Config()
+        self.__endpoint = configurations.endpoint
 
     @staticmethod
     def __read(url) -> pd.DataFrame:
@@ -52,6 +50,6 @@ class Measures:
         :return:
         """
 
-        url = self.endpoint.format(branch=branch)
+        url = self.__endpoint.format(branch=branch)
 
         return self.__read(url)
