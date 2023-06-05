@@ -1,6 +1,7 @@
 """
 Module measures.py
 """
+
 import requests
 import pandas as pd
 
@@ -11,14 +12,16 @@ class Measures:
 
     """
 
+    # This is an odd set-up, the normal approach, i.e., setting-up
+    # within __init__(), is failing.
+    endpoint: str = 'http://environment.data.gov.uk/water-quality/{branch}'
+
     def __int__(self):
         """
         The constructor
 
         :return:
         """
-
-        self.endpoint = 'http://environment.data.gov.uk/water-quality/{branch}'
 
     @staticmethod
     def __read(url) -> pd.DataFrame:
