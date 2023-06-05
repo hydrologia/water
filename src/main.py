@@ -26,7 +26,7 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S')
     logger = logging.getLogger(__name__)
 
-    # Strange
+    # Classes
     import src.algorithms.determinands
 
     main()
