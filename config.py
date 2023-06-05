@@ -1,9 +1,13 @@
+"""
+config.py
+"""
 import collections
 import os
 
 
 class Config:
     """
+    The project's global configurations
 
     """
 
