@@ -4,6 +4,7 @@ coverage==7.2.2
 pytest-cov==3.0.0
 pylint==2.16.2
 flake8==4.0.1
+requests==2.27.1
 ## The following requirements were added by pip freeze:
 numpy==1.24.3
 pandas==1.5.3
