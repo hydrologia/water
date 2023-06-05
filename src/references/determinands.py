@@ -2,15 +2,13 @@ import src.interface.measures
 
 
 class Determinands:
-
-    def __int__(self, branch="def/determinands.csv"):
+    def __int__(self, branch: str = 'def/determinands.csv'):
         """
 
-        :param branch:
         :return:
         """
 
-        self.branch = branch
+        self.__branch = branch
 
     def exc(self):
         """
@@ -18,5 +16,5 @@ class Determinands:
         :return:
         """
 
-        frame = src.interface.measures.Measures().exc(branch=self.branch)
+        frame = src.interface.measures.Measures().exc(branch=self.__branch)
         frame.info()
