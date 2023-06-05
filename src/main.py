@@ -10,15 +10,15 @@ def main():
     :return:
     """
 
-    logger.info('water')
-
-    src.references.determinands.Determinands().exc()
+    term = src.algorithms.determinands.Determinands()
+    term.exc()
 
 
 if __name__ == '__main__':
+
     root = os.getcwd()
     sys.path.append(root)
-    sys.path.append(os.path.join(root, "src"))
+    sys.path.insert(0, os.path.join(root, 'src'))
 
     # Logging
     logging.basicConfig(level=logging.INFO,
@@ -26,7 +26,7 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S')
     logger = logging.getLogger(__name__)
 
-    # Classes
-    import src.references.determinands
+    # Strange
+    import src.algorithms.determinands
 
     main()
