@@ -22,12 +22,6 @@ class Determinands:
         :return:
         """
 
-        # self.__query hosts the query string for retrieving determinands data via the environment
-        # agency's API (application programming interface)
-        configurations = config.Config()
-        self.__query = configurations.reference_query
-        self.__directory = configurations.reference_directory
-
         # Focus
         self.__focus = 'determinands'
 
@@ -35,9 +29,16 @@ class Determinands:
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
                          'unit.label': 'unit_of_measure', 'unit.comment': 'unit_of_measure_desc'}
 
-    def __raw(self, blob: pd.DataFrame):
+        # self.__query hosts the query strings for retrieving data from the United Kingdom's Environment
+        # Agency, via its API (application programming interface).  This program focuses on the chemical
+        # determinands.  self.__directory hosts the directory names for raw & structured reference data.
+        configurations = config.Config()
+        self.__query = configurations.reference_query
+        self.__directory = configurations.reference_directory
 
-        src.functions.streams.Streams().write(data=blob, path=os.path.join(self.__directory.raw, f'{self.__focus}.csv'))
+    def __write(self, blob: pd.DataFrame, root: str):
+
+        src.functions.streams.Streams().write(data=blob, path=os.path.join(root, f'{self.__focus}.csv'))
 
     def exc(self):
         """
@@ -45,9 +46,16 @@ class Determinands:
         :return:
         """
 
-        print(self.__query.__getattribute__(self.__focus))
+        frame: pd.DataFrame = src.interface.measures.Measures().exc(
+            branch=self.__query.__getattribute__(self.__focus))
 
-        frame: pd.DataFrame = src.interface.measures.Measures().exc(branch=self.__query.determinands)
+        # raw
+        self.__write(blob=frame, root=self.__directory.raw)
+
+        # structured
         frame: pd.DataFrame = frame.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
+        self.__write(blob=frame, root=self.__directory.structured)
+
+        # preview
         frame.info()
