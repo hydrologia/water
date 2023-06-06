@@ -34,7 +34,7 @@ class Determinands:
         # determinands.  self.__directory hosts the directory names for raw & structured reference data.
         configurations = config.Config()
         self.__query, self.__directory = configurations.references()
-        
+
     def __write(self, blob: pd.DataFrame, root: str):
 
         src.functions.streams.Streams().write(data=blob, path=os.path.join(root, f'{self.__focus}.csv'))
