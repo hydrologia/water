@@ -33,9 +33,8 @@ class Determinands:
         # Agency, via its API (application programming interface).  This program focuses on the chemical
         # determinands.  self.__directory hosts the directory names for raw & structured reference data.
         configurations = config.Config()
-        self.__query = configurations.reference_query
-        self.__directory = configurations.reference_directory
-
+        self.__query, self.__directory = configurations.references()
+        
     def __write(self, blob: pd.DataFrame, root: str):
 
         src.functions.streams.Streams().write(data=blob, path=os.path.join(root, f'{self.__focus}.csv'))
