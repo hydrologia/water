@@ -13,8 +13,8 @@ def main():
     :return:
     """
 
-    term = src.algorithms.references.determinands.Determinands()
-    term.exc()
+    logger.info('water')
+    src.algorithms.references.interface.Interface().exc()
 
 
 if __name__ == '__main__':
@@ -28,6 +28,6 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # Classes
-    import src.algorithms.references.determinands
+    import src.algorithms.references.interface
 
     main()
