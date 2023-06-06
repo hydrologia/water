@@ -1,10 +1,12 @@
 """
 determinands.py
 """
+import os
 import pandas as pd
 
 import config
 import src.interface.measures
+import src.functions.streams
 
 
 class Determinands:
@@ -20,17 +22,22 @@ class Determinands:
         :return:
         """
 
-        configurations = config.Config()
-
-        self.__focus = 'determinands'
-
         # self.__query hosts the query string for retrieving determinands data via the environment
         # agency's API (application programming interface)
+        configurations = config.Config()
         self.__query = configurations.reference_query
+        self.__directory = configurations.reference_directory
+
+        # Focus
+        self.__focus = 'determinands'
 
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
                          'unit.label': 'unit_of_measure', 'unit.comment': 'unit_of_measure_desc'}
+
+    def __raw(self, blob: pd.DataFrame):
+
+        src.functions.streams.Streams().write(data=blob, path=os.path.join(self.__directory.raw, f'{self.__focus}.csv'))
 
     def exc(self):
         """
