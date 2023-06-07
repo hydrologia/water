@@ -44,12 +44,12 @@ class Measures:
 
         return frame
 
-    def exc(self, branch: str) -> pd.DataFrame:
+    def exc(self, query: str) -> pd.DataFrame:
         """
 
         :return:
         """
 
-        url = self.__endpoint.format(branch=branch)
+        url = self.__endpoint.format(query=query)
 
         return self.__read(url)
