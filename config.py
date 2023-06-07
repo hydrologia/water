@@ -19,7 +19,7 @@ class Config:
         # Endpoint
         self.endpoint = 'http://environment.data.gov.uk/water-quality/{branch}'
 
-        # References: API (application programming interface)
+        # References: API (Application Programming Interface)
         self.Reference_ = collections.namedtuple(
             typename='Reference_',
             field_names=['name', 'query', 'basename'])
