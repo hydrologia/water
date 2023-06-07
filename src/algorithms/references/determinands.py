@@ -33,9 +33,7 @@ class Determinands:
         # Writing
         self.__streams = src.functions.streams.Streams()
 
-        # self.__query hosts the query strings for retrieving data from the United Kingdom's Environment
-        # Agency, via its API (application programming interface).  This program focuses on the chemical
-        # determinands.  self.__directory hosts the directory names for raw & structured reference data.
+        # self.__directory hosts the directory names for raw & structured reference data.
         configurations = config.Config()
         self.__directory = configurations.references()
 
