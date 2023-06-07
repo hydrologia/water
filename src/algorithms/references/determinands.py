@@ -7,6 +7,7 @@ import pandas as pd
 import config
 import src.interface.measures
 import src.functions.streams
+import src.interface.references
 
 
 class Determinands:
@@ -22,8 +23,11 @@ class Determinands:
         :return:
         """
 
+        references = src.interface.references.References()
+        self.__references_ = references.exc(code="determinands")
+
         # Focus
-        self.__focus = 'determinands'
+        # self.__focus = 'determinands'
 
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
@@ -36,11 +40,11 @@ class Determinands:
         # Agency, via its API (application programming interface).  This program focuses on the chemical
         # determinands.  self.__directory hosts the directory names for raw & structured reference data.
         configurations = config.Config()
-        self.__query, self.__directory = configurations.references()
+        _, self.__directory = configurations.references()
 
     def __write(self, blob: pd.DataFrame, root: str):
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__focus}.csv'))
+        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references_.code}.csv'))
         
     def __structure(self, blob: pd.DataFrame):
         
@@ -57,7 +61,7 @@ class Determinands:
         """
 
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
-            query=self.__query.__getattribute__(self.__focus))
+            query=self.__references_.query)
 
         # Hence
         self.__write(blob=frame, root=self.__directory.raw)
