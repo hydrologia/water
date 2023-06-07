@@ -26,9 +26,6 @@ class Determinands:
         references = src.interface.references.References()
         self.__references_ = references.exc(code="determinands")
 
-        # Focus
-        # self.__focus = 'determinands'
-
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
                          'unit.label': 'unit_of_measure', 'unit.comment': 'unit_of_measure_desc'}
@@ -40,7 +37,7 @@ class Determinands:
         # Agency, via its API (application programming interface).  This program focuses on the chemical
         # determinands.  self.__directory hosts the directory names for raw & structured reference data.
         configurations = config.Config()
-        _, self.__directory = configurations.references()
+        self.__directory = configurations.references()
 
     def __write(self, blob: pd.DataFrame, root: str):
 
