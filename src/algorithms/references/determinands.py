@@ -23,8 +23,7 @@ class Determinands:
         :return:
         """
 
-        references = src.interface.references.References()
-        self.__references_ = references.exc(code="determinands")
+        self.__references = src.interface.references.References().exc(code="determinands")
 
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
@@ -39,7 +38,7 @@ class Determinands:
 
     def __write(self, blob: pd.DataFrame, root: str):
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references_.code}.csv'))
+        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.code}.csv'))
         
     def __structure(self, blob: pd.DataFrame):
         
@@ -56,7 +55,7 @@ class Determinands:
         """
 
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
-            query=self.__references_.query)
+            query=self.__references.query)
 
         # Hence
         self.__write(blob=frame, root=self.__directory.raw)
