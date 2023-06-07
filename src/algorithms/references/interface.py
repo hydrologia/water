@@ -1,9 +1,17 @@
+"""
+interface.py
+"""
 import config
 import src.algorithms.references.determinands
 import src.functions.directories
 
 
 class Interface:
+    """
+    Class Interface
+
+    Runs all the reference data extraction programs
+    """
 
     def __init__(self):
         """
