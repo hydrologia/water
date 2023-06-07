@@ -1,16 +1,16 @@
 nodes:
   - code: determinands
     query: "def/determinands.csv"
-    base: "determinands.csv"
+    basename: "determinands.csv"
   - code: sampling_point_types
     query: "def/sampling-point-types.csv"
-    base: "sampling_point_types.csv"
+    basename: "sampling_point_types.csv"
   - code: environment_agency_area
     query: "id/ea-area.csv"
-    base: "environment_agency_area.csv"
+    basename: "environment_agency_area.csv"
   - code: environment_agency_subarea
     query: "id/ea-subarea.csv"
-    base: "environment_agency_subarea.csv"
+    basename: "environment_agency_subarea.csv"
   - code: sampling_point
     query: "id/sampling-point.csv"
-    base: "sampling_point.csv"
+    basename: "sampling_point.csv"
