@@ -22,7 +22,7 @@ class Config:
         # References: API (Application Programming Interface)
         self.Reference_ = collections.namedtuple(
             typename='Reference_',
-            field_names=['name', 'query', 'basename'])
+            field_names=['code', 'query', 'basename'])
 
     @staticmethod
     def references() -> (collections.namedtuple, collections.namedtuple):
