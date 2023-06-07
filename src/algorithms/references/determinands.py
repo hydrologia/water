@@ -12,9 +12,7 @@ import src.interface.references
 
 class Determinands:
     """
-    Class Determinands
-
-    Structures the chemical determinands data.
+    Class Determinands: Structures the chemical determinands data.
     """
 
     def __init__(self):
@@ -23,11 +21,12 @@ class Determinands:
         :return:
         """
 
-        self.__references = src.interface.references.References().exc(code="determinands")
-
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'determinand_id', 'label': 'determinand_desc', 'definition': 'definition',
                          'unit.label': 'unit_of_measure', 'unit.comment': 'unit_of_measure_desc'}
+
+        # The API parameters of the determinands reference data
+        self.__references = src.interface.references.References().exc(code="determinands")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
@@ -37,10 +36,21 @@ class Determinands:
         self.__directory = configurations.references()
 
     def __write(self, blob: pd.DataFrame, root: str):
+        """
+
+        :param blob:
+        :param root:
+        :return:
+        """
 
         self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.code}.csv'))
         
     def __structure(self, blob: pd.DataFrame):
+        """
+
+        :param blob:
+        :return:
+        """
         
         # structured
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
