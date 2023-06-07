@@ -57,7 +57,7 @@ class Determinands:
         """
 
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
-            branch=self.__query.__getattribute__(self.__focus))
+            query=self.__query.__getattribute__(self.__focus))
 
         # Hence
         self.__write(blob=frame, root=self.__directory.raw)
