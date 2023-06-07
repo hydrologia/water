@@ -46,9 +46,13 @@ class References:
         """
 
         # the dictionary of keys in focus
-        dictionary: dict = [item for item in stream['parameters'] if item['code'] == code][0]
+        dictionary: dict = [item for item in stream['nodes'] if item['code'] == code][0]
 
         # the named tuple form of the keys
         excerpt = config.Config().Reference_(**dictionary)
 
         return excerpt
+
+    def exc(self, code: str) -> config.Config().Reference_:
+
+        return self.__excerpt(self.__stream, code)
