@@ -56,7 +56,7 @@ class Subarea:
         # Codes
         frame.loc[:, 'area_id'] = frame['area_id'].apply(lambda x: os.path.basename(x)).array
 
-        # Save
+        # Write
         self.__write(blob=frame, root=self.__directory.structured)
 
         # Hence
