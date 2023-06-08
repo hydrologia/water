@@ -1,9 +1,16 @@
 """
 interface.py
 """
+import pandas as pd
+
 import config
 import src.algorithms.references.determinands
 import src.functions.directories
+
+import src.algorithms.references.area
+import src.algorithms.references.subarea
+import src.algorithms.references.sampling_point_types
+import src.algorithms.references.sampling_point
 
 
 class Interface:
@@ -19,7 +26,7 @@ class Interface:
         """
 
         configurations = config.Config()
-        _, self.directory = configurations.references()
+        self.directory = configurations.references()
         paths = list(self.directory)
 
         directories = src.functions.directories.Directories()
@@ -34,4 +41,10 @@ class Interface:
         :return:
         """
 
+        src.algorithms.references.area.Area().exc()
         src.algorithms.references.determinands.Determinands().exc()
+        sampling_point_types: pd.DataFrame = src.algorithms.references.sampling_point_types.SamplingPointTypes().exc()
+        subarea: pd.DataFrame = src.algorithms.references.subarea.Subarea().exc()
+
+        src.algorithms.references.sampling_point.SamplingPoint().exc(
+            subarea=subarea, sampling_point_types=sampling_point_types)
