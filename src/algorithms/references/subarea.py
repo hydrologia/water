@@ -9,6 +9,9 @@ import src.interface.references
 
 
 class Subarea:
+    """
+
+    """
 
     def __init__(self):
         """
@@ -20,7 +23,7 @@ class Subarea:
                          'subOrganizationOf': 'area_id'}
 
         # The API parameters of the determinands reference data
-        self.__references = src.interface.references.References().exc(code="subarea")
+        self.__references = src.interface.references.References().exc(code="environment_agency_subarea")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
@@ -39,7 +42,7 @@ class Subarea:
 
         self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
 
-    def __structure(self, blob: pd.DataFrame):
+    def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
         :param blob:
@@ -50,9 +53,16 @@ class Subarea:
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
 
+        # Codes
+        frame.loc[:, 'area_id'] = frame['area_id'].apply(lambda x: os.path.basename(x)).array
+
+        # Save
         self.__write(blob=frame, root=self.__directory.structured)
 
-    def exc(self):
+        # Hence
+        return frame
+
+    def exc(self) -> pd.DataFrame:
         """
 
         :return:
@@ -65,4 +75,4 @@ class Subarea:
         self.__write(blob=frame, root=self.__directory.raw)
 
         # Structure and save
-        self.__structure(blob=frame)
+        return self.__structure(blob=frame)
