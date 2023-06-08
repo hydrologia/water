@@ -56,8 +56,15 @@ class SamplingPoint:
         frame.rename(columns=self.__fields, inplace=True)
 
         # Subarea
-        frame = frame.copy().merge(subarea, how='left', on='subarea_desc')
+        frame = frame.copy().merge(subarea, how='left', on='subarea_desc')\
+            .drop(columns='subarea_desc')
 
+        # Sampling Point Types
+        frame = frame.copy().merge(sampling_point_types[['sampling_point_type_id', 'sampling_point_type_desc']],
+                                   how='left', on='sampling_point_type_desc')\
+            .drop(columns='sampling_point_type_desc')
+
+        # Write
         self.__write(blob=frame, root=self.__directory.structured)
 
     def exc(self, subarea: pd.DataFrame, sampling_point_types: pd.DataFrame):
