@@ -20,7 +20,7 @@ class Area:
         self.__fields = {'notation': 'area_id', 'label': 'area_desc'}
 
         # The API parameters of the determinands reference data
-        self.__references = src.interface.references.References().exc(code="area")
+        self.__references = src.interface.references.References().exc(code="environment_agency_area")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
