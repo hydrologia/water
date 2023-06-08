@@ -2,11 +2,12 @@
 determinands.py
 """
 import os
+
 import pandas as pd
 
 import config
-import src.interface.measures
 import src.functions.streams
+import src.interface.measures
 import src.interface.references
 
 
@@ -43,7 +44,7 @@ class Determinands:
         :return:
         """
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.code}.csv'))
+        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
         
     def __structure(self, blob: pd.DataFrame):
         """
@@ -67,6 +68,8 @@ class Determinands:
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
             query=self.__references.query)
 
-        # Hence
+        # Keep a copy of the raw data
         self.__write(blob=frame, root=self.__directory.raw)
+
+        # Structure and save
         self.__structure(blob=frame)
