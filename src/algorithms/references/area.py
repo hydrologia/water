@@ -50,6 +50,7 @@ class Area:
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
 
+        # Write
         self.__write(blob=frame, root=self.__directory.structured)
 
     def exc(self):
