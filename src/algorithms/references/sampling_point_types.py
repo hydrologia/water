@@ -17,7 +17,7 @@ class SamplingPointTypes:
 
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'sampling_point_type_id', 'label': 'sampling_point_type_desc',
-                         'group': 'group', 'group_label': 'group_desc'}
+                         'group': 'group', 'group.label': 'group_desc'}
 
         # The API parameters of the determinands reference data
         self.__references = src.interface.references.References().exc(code="sampling_point_types")
@@ -39,7 +39,7 @@ class SamplingPointTypes:
 
         self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
 
-    def __structure(self, blob: pd.DataFrame):
+    def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
         :param blob:
@@ -49,10 +49,12 @@ class SamplingPointTypes:
         # Focus, rename
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
-
         self.__write(blob=frame, root=self.__directory.structured)
 
-    def exc(self):
+        # Hence
+        return frame
+
+    def exc(self) -> pd.DataFrame:
         """
 
         :return:
@@ -65,4 +67,4 @@ class SamplingPointTypes:
         self.__write(blob=frame, root=self.__directory.raw)
 
         # Structure and save
-        self.__structure(blob=frame)
+        return self.__structure(blob=frame)
