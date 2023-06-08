@@ -18,9 +18,9 @@ class SamplingPoint:
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'sampling_point_id', 'label': 'sampling_point_desc',
                          'comment': 'sampling_point_definition', 'easting': 'easting', 'northing': 'northing',
-                         'lat': 'latitude', 'long': 'longitude', 'area_label': 'area_desc',
-                         'subArea_label': 'subarea_desc', 'samplingPointType_label': 'sampling_point_type_desc',
-                         'samplingPointStatus_label': 'sampling_point_state'}
+                         'lat': 'latitude', 'long': 'longitude', 'area.label': 'area_desc',
+                         'subArea.label': 'subarea_desc', 'samplingPointType.label': 'sampling_point_type_desc',
+                         'samplingPointStatus.label': 'sampling_point_state'}
 
         # The API parameters of the determinands reference data
         self.__references = src.interface.references.References().exc(code="sampling_point")
