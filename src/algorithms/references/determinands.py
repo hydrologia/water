@@ -53,7 +53,7 @@ class Determinands:
         :return:
         """
         
-        # structured
+        # Focus, rename
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
         
