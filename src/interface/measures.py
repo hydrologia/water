@@ -21,18 +21,23 @@ class Measures:
         :return:
         """
 
+        # The environment agency's water quality API (Application Programming Interface) endpoint
         configurations = config.Config()
         self.__endpoint = configurations.endpoint
 
-    @staticmethod
-    def __read(url) -> pd.DataFrame:
+        # The environment agency's default limit is 50
+        self.__limit = '?_limit=1000000'
+
+    def __read(self, url) -> pd.DataFrame:
         """
 
         :param url:
         :return:
         """
 
-        response = requests.get(url=url, timeout=10)
+        print(f'{url}{self.__limit}')
+
+        response = requests.get(url=f'{url}{self.__limit}', timeout=900)
 
         try:
             if response.status_code == 200:
