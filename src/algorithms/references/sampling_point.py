@@ -74,7 +74,7 @@ class SamplingPoint:
         """
 
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
-            query=self.__references.query)
+            affix=self.__references.affix)
 
         # Keep a copy of the raw data
         self.__write(blob=frame, root=self.__directory.raw)
