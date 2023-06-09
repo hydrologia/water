@@ -22,6 +22,9 @@ if __name__ == '__main__':
     sys.path.append(root)
     sys.path.insert(0, os.path.join(root, 'src'))
 
+    # Threads
+    os.environ['NUMEXPR_MAX_THREADS'] = '8'
+
     # Logging
     logging.basicConfig(level=logging.INFO, format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
                         datefmt='%Y-%m-%d %H:%M:%S')
