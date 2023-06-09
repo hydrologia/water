@@ -1,3 +1,6 @@
+"""
+area.py
+"""
 import os
 
 import pandas as pd
@@ -9,11 +12,13 @@ import src.interface.references
 
 
 class Area:
+    """
+    Class Area
+    """
 
     def __init__(self):
         """
-
-        :return:
+        The constructor
         """
 
         # The reference's default field names, and alternative names
