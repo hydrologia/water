@@ -18,12 +18,16 @@ class Config:
 
         """
 
-        # Endpoint
-        self.endpoint = 'https://environment.data.gov.uk/water-quality/{query}'
+        # The environment agency's default limit is 50
+        __limit = '?_limit=1000000'
 
-        # References: API (Application Programming Interface)
+        # Endpoint
+        self.endpoint = 'https://environment.data.gov.uk/water-quality{affix}' + __limit + '{query}'
+
+        # Reference parameters: vis-à-vis environment agency's API (Application Programming Interface)
+        # reference data
         self.Reference_ = collections.namedtuple(
-            typename='Reference_', field_names=['code', 'query', 'basename'])
+            typename='Reference_', field_names=['code', 'affix', 'basename'])
 
     def references(self) -> ReferenceDirectory:
         """
