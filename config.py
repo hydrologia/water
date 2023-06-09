@@ -29,6 +29,9 @@ class Config:
         self.Reference_ = collections.namedtuple(
             typename='Reference_', field_names=['code', 'affix', 'basename'])
 
+        # Years
+        self.years = range(2000, 2024)
+
     def references(self) -> ReferenceDirectory:
         """
 
