@@ -1,3 +1,6 @@
+"""
+subarea.py
+"""
 import os
 
 import pandas as pd
@@ -10,12 +13,12 @@ import src.interface.references
 
 class Subarea:
     """
-
+    Class Subarea
     """
 
     def __init__(self):
         """
-
+        The constructor
         """
 
         # The reference's default field names, and alternative names
