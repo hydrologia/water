@@ -1,0 +1,16 @@
+nodes:
+  - code: determinands
+    affix: "/def/determinands.csv"
+    basename: "determinands.csv"
+  - code: sampling_point_types
+    affix: "/def/sampling-point-types.csv"
+    basename: "sampling_point_types.csv"
+  - code: environment_agency_area
+    affix: "/id/ea-area.csv"
+    basename: "environment_agency_area.csv"
+  - code: environment_agency_subarea
+    affix: "/id/ea-subarea.csv"
+    basename: "environment_agency_subarea.csv"
+  - code: sampling_point
+    affix: "/id/sampling-point.csv"
+    basename: "sampling_point.csv"
