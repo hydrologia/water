@@ -18,8 +18,7 @@ class Determinands:
 
     def __init__(self):
         """
-
-        :return:
+        The constructor
         """
 
         # The reference's default field names, and alternative names
