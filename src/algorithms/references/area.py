@@ -8,7 +8,7 @@ import pandas as pd
 import config
 import src.functions.streams
 import src.interface.measures
-import src.interface.references
+import src.configuration.references
 
 
 class Area:
@@ -25,7 +25,7 @@ class Area:
         self.__fields = {'notation': 'area_id', 'label': 'area_desc'}
 
         # The API parameters of the determinands reference data
-        self.__references = src.interface.references.References().exc(code="environment_agency_area")
+        self.__references = src.configuration.references.References().exc(code="environment_agency_area")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
