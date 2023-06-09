@@ -1,5 +1,5 @@
 """
-Module measures.py
+measures.py
 """
 
 import requests
@@ -11,7 +11,6 @@ import config
 class Measures:
     """
     Class Measures
-
     """
 
     def __init__(self):
