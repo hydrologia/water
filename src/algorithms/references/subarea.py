@@ -8,7 +8,7 @@ import pandas as pd
 import config
 import src.functions.streams
 import src.interface.measures
-import src.interface.references
+import src.configuration.references
 
 
 class Subarea:
@@ -26,7 +26,7 @@ class Subarea:
                          'subOrganizationOf': 'area_id'}
 
         # The API parameters of the determinands reference data
-        self.__references = src.interface.references.References().exc(code="environment_agency_subarea")
+        self.__references = src.configuration.references.References().exc(code="environment_agency_subarea")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
