@@ -1,3 +1,6 @@
+"""
+sampling_point_types.py
+"""
 import os
 
 import pandas as pd
@@ -9,10 +12,13 @@ import src.interface.references
 
 
 class SamplingPointTypes:
+    """
+    Class SamplingPointTypes
+    """
 
     def __init__(self):
         """
-
+        The constructor
         """
 
         # The reference's default field names, and alternative names
