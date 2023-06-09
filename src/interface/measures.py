@@ -21,14 +21,12 @@ class Measures:
         :return:
         """
 
-        # The environment agency's default limit is 50
-        __limit = '?_limit=1000000'
-
         # The environment agency's water quality API (Application Programming Interface) endpoint
         configurations = config.Config()
-        self.__endpoint = configurations.endpoint + __limit
+        self.__endpoint = configurations.endpoint
 
-    def __read(self, url) -> pd.DataFrame:
+    @staticmethod
+    def __read(url) -> pd.DataFrame:
         """
 
         :param url:
@@ -47,12 +45,13 @@ class Measures:
 
         return frame
 
-    def exc(self, query: str) -> pd.DataFrame:
+    def exc(self, affix: str = '', query: str = '') -> pd.DataFrame:
         """
 
         :return:
         """
 
-        url = self.__endpoint.format(query=query)
+        url = self.__endpoint.format(affix=affix, query=query)
+        print(url)
 
         return self.__read(url)
