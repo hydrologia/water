@@ -56,6 +56,9 @@ class SamplingPointTypes:
         frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
         frame.rename(columns=self.__fields, inplace=True)
 
+        # Codes
+        frame.loc[:, 'group'] = frame['group'].apply(lambda x: os.path.basename(x)).array
+
         # Write
         self.__write(blob=frame, root=self.__directory.structured)
 
