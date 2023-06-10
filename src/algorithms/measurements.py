@@ -4,19 +4,22 @@ import dask
 import config
 import os
 
-import src.interface.measures
+import src.interface.integrity
 import src.functions.streams
 
 
 class Measurements:
 
-    def __init__(self):
+    def __init__(self, sampled_material_types: pd.DataFrame, purposes: pd.DataFrame):
         """
 
+        :param sampled_material_types:
+        :param purposes:
         """
 
-        configurations = config.Config()
-        self.__years = configurations.years
+        self.__sampled_material_types = sampled_material_types
+
+        self.__purposes = purposes
 
         self.__affix = '/data/measurement.csv'
 
@@ -30,18 +33,6 @@ class Measurements:
 
         self.__streams = src.functions.streams.Streams()
 
-    @staticmethod
-    def __areas() -> np.ndarray:
-
-        filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
-
-        try:
-            values = pd.read_csv(filepath_or_buffer=filepath, header=0, encoding='utf-8', usecols='area_id').array
-        except ImportError as err:
-            raise Exception(err) from err
-
-        return values
-
     @dask.delayed
     def __query(self, area: str, year: int) -> str:
 
@@ -52,32 +43,43 @@ class Measurements:
     @dask.delayed
     def __readings(self, query: str) -> pd.DataFrame:
 
-        return src.interface.measures.Measures().exc(affix=self.__affix, query=query)
+        return src.interface.integrity.Integrity().exc(affix=self.__affix, query=query)
+
+    def __rename(self, blob: pd.DataFrame) -> pd.DataFrame:
+
+        return blob.rename(columns=self.__fields)
 
     @dask.delayed
-    def __structure(self, blob: pd.DataFrame):
+    def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
         :param blob:
         :return:
         """
 
+        initial = blob.merge(self.__sampled_material_types, how='left', on='sampled_material_type_desc')\
+            .drop(columns='sampled_material_type_desc')
+
+        return initial.merge(self.__purposes, how='left', on='purpose_desc')\
+            .drop(columns='purpose_desc')
+
     @dask.delayed
     def __write(self, blob: pd.DataFrame, path: str):
 
         self.__streams.write(data=blob, path=path)
 
-    def exc(self):
+    def exc(self, years, areas):
         """
 
         :return:
         """
 
         computation = []
-        for year in self.__years:
+        for year in years:
 
-            for area in self.__areas():
+            for area in areas():
 
                 query = self.__query(area=area, year=year)
-
                 readings = self.__readings(query=query)
+                renamed = self.__rename(blob=readings)
+                structured = self.__structure(blob=renamed)
