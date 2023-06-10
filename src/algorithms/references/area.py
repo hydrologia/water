@@ -24,7 +24,7 @@ class Area:
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'area_id', 'label': 'area_desc'}
 
-        # The API parameters of the determinands reference data
+        # The API parameters of the area reference data
         self.__references = src.configuration.references.References().exc(code="environment_agency_area")
 
         # Writing
