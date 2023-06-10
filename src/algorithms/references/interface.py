@@ -37,7 +37,7 @@ class Interface:
             directories.create(path)
 
     @staticmethod
-    def exc():
+    def exc() -> bool:
         """
 
         :return:
@@ -52,3 +52,5 @@ class Interface:
 
         src.algorithms.references.sampling_point.SamplingPoint().exc(
             subarea=subarea, sampling_point_types=sampling_point_types)
+
+        return True
