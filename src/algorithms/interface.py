@@ -6,7 +6,7 @@ import dask
 import src.functions.directories
 import src.functions.streams
 import config
-import src.algorithms.measurements
+import src.algorithms.integrity
 
 
 class Interface:
@@ -83,6 +83,6 @@ class Interface:
         self.__directories()
 
         # Water integrity measures
-        src.algorithms.measurements.Measurements(
+        src.algorithms.integrity.Integrity(
             sampled_material_types=self.__sampled_material_types(), purposes=self.__purposes())\
             .exc(years=self.__years, areas=self.__areas())
