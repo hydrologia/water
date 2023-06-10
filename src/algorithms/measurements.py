@@ -33,6 +33,8 @@ class Measurements:
 
         self.__streams = src.functions.streams.Streams()
 
+        self.__pathstr = os.path.join(os.getcwd(), 'warehouse', 'integrity', '{year}', '{area}.csv')
+
     @dask.delayed
     def __query(self, area: str, year: int) -> str:
 
@@ -64,11 +66,19 @@ class Measurements:
             .drop(columns='purpose_desc')
 
     @dask.delayed
-    def __write(self, blob: pd.DataFrame, path: str):
+    def __write(self, blob: pd.DataFrame, year: int, area: str):
+        """
 
+        :param blob:
+        :param year:
+        :param area:
+        :return:
+        """
+
+        path = self.__pathstr.format(year=year, area=area)
         self.__streams.write(data=blob, path=path)
 
-    def exc(self, years, areas):
+    def exc(self, years: np.ndarray, areas: np.ndarray):
         """
 
         :return:
@@ -77,9 +87,10 @@ class Measurements:
         computation = []
         for year in years:
 
-            for area in areas():
+            for area in areas:
 
                 query = self.__query(area=area, year=year)
                 readings = self.__readings(query=query)
                 renamed = self.__rename(blob=readings)
                 structured = self.__structure(blob=renamed)
+                self.__write(blob=structured, year=year, area=area)
