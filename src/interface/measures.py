@@ -1,7 +1,7 @@
 """
 measures.py
 """
-
+import logging
 import requests
 import pandas as pd
 
@@ -19,6 +19,10 @@ class Measures:
 
         :return:
         """
+
+        logging.basicConfig(level=logging.INFO, format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
+                            datefmt='%Y-%m-%d %H:%M:%S')
+        self.__logger = logging.getLogger(__name__)
 
         # The environment agency's water quality API (Application Programming Interface) endpoint
         configurations = config.Config()
@@ -44,13 +48,13 @@ class Measures:
 
         return frame
 
-    def exc(self, affix: str = '', query: str = '') -> pd.DataFrame:
+    def exc(self, affix: str = '', query: str = '', usecols: list = None) -> pd.DataFrame:
         """
 
         :return:
         """
 
         url = self.__endpoint.format(affix=affix, query=query)
-        print(url)
+        self.__logger.info(url)
 
-        return self.__read(url)
+        return self.__read(url=url, usecols=usecols)
