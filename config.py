@@ -10,8 +10,8 @@ class Config:
     The project's global configurations
 
     """
-    ReferenceDirectory = collections.namedtuple(
-        typename='ReferenceDirectory', field_names=['raw', 'structured'])
+    AssetDirectory = collections.namedtuple(
+        typename='AssetDirectory', field_names=['raw', 'structured'])
 
     def __init__(self):
         """
@@ -32,14 +32,14 @@ class Config:
         # Years
         self.years = range(2000, 2024)
 
-    def references(self) -> ReferenceDirectory:
+    def references(self) -> AssetDirectory:
         """
 
         :return:
         """
 
         # The reference data directories.
-        directory = self.ReferenceDirectory(
+        directory = self.AssetDirectory(
             raw=os.path.join(os.getcwd(), 'data', 'references'),
             structured=os.path.join(os.getcwd(), 'warehouse', 'references'))
 
