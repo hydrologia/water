@@ -1,5 +1,5 @@
 """
-sampling_point.py
+purposes.py
 """
 import os
 
@@ -7,7 +7,7 @@ import pandas as pd
 
 import config
 import src.functions.streams
-import src.interface.measures
+import src.interface.integrity
 import src.configuration.references
 
 
@@ -25,7 +25,7 @@ class Purposes:
         self.__fields = {'notation': 'purpose_id', 'label': 'purpose_desc'}
 
         # The API parameters of the purposes reference data
-        self.__references = src.configuration.references.References().exc(code="sampled_material_types")
+        self.__references = src.configuration.references.References().exc(code="purposes")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
@@ -55,9 +55,6 @@ class Purposes:
         frame: pd.DataFrame = blob.copy()
         frame.rename(columns=self.__fields, inplace=True)
 
-        # Ascertain upper case; initially strip.
-        frame.loc[:, 'sampled_material_type_id'] = frame['sampled_material_type_id'].str.strip().str.upper().array
-
         # Write
         self.__write(blob=frame, root=self.__directory.structured)
 
@@ -67,7 +64,7 @@ class Purposes:
         :return:
         """
 
-        frame: pd.DataFrame = src.interface.measures.Measures().exc(
+        frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
             affix=self.__references.affix, usecols=list(self.__fields.keys()))
 
         # Keep a copy of the raw data
