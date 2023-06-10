@@ -25,7 +25,7 @@ class SamplingPointTypes:
         self.__fields = {'notation': 'sampling_point_type_id', 'label': 'sampling_point_type_desc',
                          'group': 'group', 'group.label': 'group_desc'}
 
-        # The API parameters of the determinands reference data
+        # The API parameters of the sampling point types reference data
         self.__references = src.configuration.references.References().exc(code="sampling_point_types")
 
         # Writing
