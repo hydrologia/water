@@ -1,5 +1,5 @@
 """
-measures.py
+integrity.py
 """
 import logging
 import requests
@@ -8,7 +8,7 @@ import pandas as pd
 import config
 
 
-class Measures:
+class Integrity:
     """
     Class Measures
     """
