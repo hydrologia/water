@@ -8,7 +8,7 @@ import src.interface.integrity
 import src.functions.streams
 
 
-class Measurements:
+class Integrity:
 
     def __init__(self, sampled_material_types: pd.DataFrame, purposes: pd.DataFrame):
         """
