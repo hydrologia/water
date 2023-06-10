@@ -5,6 +5,8 @@ import pandas as pd
 
 import config
 import src.algorithms.references.determinands
+import src.algorithms.references.purposes
+import src.algorithms.references.sampled_material_types
 import src.functions.directories
 
 import src.algorithms.references.area
@@ -43,6 +45,8 @@ class Interface:
 
         src.algorithms.references.area.Area().exc()
         src.algorithms.references.determinands.Determinands().exc()
+        src.algorithms.references.purposes.Purposes().exc()
+        src.algorithms.references.sampled_material_types.SamplingMaterialTypes().exc()
         sampling_point_types: pd.DataFrame = src.algorithms.references.sampling_point_types.SamplingPointTypes().exc()
         subarea: pd.DataFrame = src.algorithms.references.subarea.Subarea().exc()
 
