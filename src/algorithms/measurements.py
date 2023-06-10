@@ -26,7 +26,7 @@ class Measurements:
                          'sample.samplingPoint.easting': 'easting', 'sample.samplingPoint.northing': 'northing',
                          'sample.sampledMaterialType.label': 'sampled_material_type_desc',
                          'sample.isComplianceSample': 'is_compliance_sample',
-                         'sample.purpose.label': 'sample_purpose_desc'}
+                         'sample.purpose.label': 'purpose_desc'}
 
         self.__streams = src.functions.streams.Streams()
 
