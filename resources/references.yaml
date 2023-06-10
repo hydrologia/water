@@ -5,6 +5,9 @@ nodes:
   - code: sampling_point_types
     affix: "/def/sampling-point-types.csv"
     basename: "sampling_point_types.csv"
+  - code: sampled_material_types
+    affix: "/def/sampled-material-types.csv"
+    basename: "sampled_material_types.csv"
   - code: environment_agency_area
     affix: "/id/ea-area.csv"
     basename: "environment_agency_area.csv"
