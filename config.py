@@ -44,3 +44,11 @@ class Config:
             structured=os.path.join(os.getcwd(), 'warehouse', 'references'))
 
         return directory
+
+    def measurements(self) -> AssetDirectory:
+
+        directory = self.AssetDirectory(
+            raw=os.path.join(os.getcwd(), 'data', 'measurements'),
+            structured=os.path.join(os.getcwd(), 'warehouse', 'measurements'))
+
+        return directory
