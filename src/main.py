@@ -14,7 +14,12 @@ def main():
     """
 
     logger.info('water')
-    src.algorithms.references.interface.Interface().exc()
+    success = src.algorithms.references.interface.Interface().exc()
+    logger.info(success is True)
+
+    messages = src.algorithms.interface.Interface().exc()
+    logger.info(type(messages))
+    logger.info(messages)
 
 
 if __name__ == '__main__':
@@ -32,5 +37,6 @@ if __name__ == '__main__':
 
     # Classes
     import src.algorithms.references.interface
+    import src.algorithms.interface
 
     main()
