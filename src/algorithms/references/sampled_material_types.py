@@ -13,7 +13,7 @@ import src.configuration.references
 
 class SamplingMaterialTypes:
     """
-    Class SamplingPoint
+    Class SamplingMaterialTypes
     """
 
     def __init__(self):
@@ -24,7 +24,7 @@ class SamplingMaterialTypes:
         # The reference's default field names, and alternative names
         self.__fields = {'notation': 'sampled_material_type_id', 'label': 'sampled_material_type_desc'}
 
-        # The API parameters of the determinands reference data
+        # The API parameters of the sampled material type reference data
         self.__references = src.configuration.references.References().exc(code="sampled_material_types")
 
         # Writing
@@ -51,8 +51,8 @@ class SamplingMaterialTypes:
         :return:
         """
 
-        # Focus, rename
-        frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
+        # Rename
+        frame: pd.DataFrame = blob.copy()
         frame.rename(columns=self.__fields, inplace=True)
 
         # Ascertain upper case; initially strip.
@@ -68,7 +68,7 @@ class SamplingMaterialTypes:
         """
 
         frame: pd.DataFrame = src.interface.measures.Measures().exc(
-            affix=self.__references.affix)
+            affix=self.__references.affix, usecols=list(self.__fields.keys()))
 
         # Keep a copy of the raw data
         self.__write(blob=frame, root=self.__directory.raw)
