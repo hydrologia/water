@@ -1,11 +1,11 @@
-import numpy as np
-import pandas as pd
-import dask
-import config
 import os
 
-import src.interface.integrity
+import dask
+import numpy as np
+import pandas as pd
+
 import src.functions.streams
+import src.interface.integrity
 
 
 class Integrity:
@@ -59,10 +59,10 @@ class Integrity:
         :return:
         """
 
-        initial = blob.merge(self.__sampled_material_types, how='left', on='sampled_material_type_desc')\
+        initial = blob.merge(self.__sampled_material_types, how='left', on='sampled_material_type_desc') \
             .drop(columns='sampled_material_type_desc')
 
-        return initial.merge(self.__purposes, how='left', on='purpose_desc')\
+        return initial.merge(self.__purposes, how='left', on='purpose_desc') \
             .drop(columns='purpose_desc')
 
     @dask.delayed
@@ -88,7 +88,6 @@ class Integrity:
         for year in years:
 
             for area in areas:
-
                 query = self.__query(area=area, year=year)
                 readings = self.__readings(query=query)
                 renamed = self.__rename(blob=readings)
