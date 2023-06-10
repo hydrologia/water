@@ -4,6 +4,8 @@ config.py
 import collections
 import os
 
+import numpy as np
+
 
 class Config:
     """
@@ -30,7 +32,7 @@ class Config:
             typename='Reference_', field_names=['code', 'affix', 'basename'])
 
         # Years
-        self.years = range(2000, 2024)
+        self.years = np.arange(2000, 2024)
 
     def references(self) -> AssetDirectory:
         """
