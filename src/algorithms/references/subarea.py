@@ -6,9 +6,9 @@ import os
 import pandas as pd
 
 import config
+import src.configuration.references
 import src.functions.streams
 import src.interface.integrity
-import src.configuration.references
 
 
 class Subarea:
