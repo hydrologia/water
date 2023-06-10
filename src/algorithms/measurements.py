@@ -5,6 +5,7 @@ import config
 import os
 
 import src.interface.measures
+import src.functions.streams
 
 
 class Measurements:
@@ -19,12 +20,14 @@ class Measurements:
 
         self.__affix = '/data/measurement.csv'
 
-        self.__area = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
+        self.__streams = src.functions.streams.Streams()
 
     def __areas(self) -> np.ndarray:
 
+        filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
+
         try:
-            values = pd.read_csv(filepath_or_buffer=self.__area, header=0, encoding='utf-8', usecols='area_id').array
+            values = pd.read_csv(filepath_or_buffer=filepath, header=0, encoding='utf-8', usecols='area_id').array
         except ImportError as err:
             raise Exception(err) from err
 
@@ -42,6 +45,19 @@ class Measurements:
 
         return src.interface.measures.Measures().exc(affix=self.__affix, query=query)
 
+    @dask.delayed
+    def __structure(self, blob: pd.DataFrame):
+        """
+
+        :param blob:
+        :return:
+        """
+
+    @dask.delayed
+    def __write(self, blob: pd.DataFrame, path: str):
+
+        self.__streams.write(data=blob, path=path)
+
     def exc(self):
         """
 
@@ -49,9 +65,9 @@ class Measurements:
         """
 
         computation = []
-        for area in self.__areas():
+        for year in self.__years:
 
-            for year in self.__years:
+            for area in self.__areas():
 
                 query = self.__query(area=area, year=year)
 
