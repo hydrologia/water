@@ -20,6 +20,14 @@ class Measurements:
 
         self.__affix = '/data/measurement.csv'
 
+        self.__fields = {'determinand.notation': 'determinand_id', 'sample.sampleDateTime': 'datetime',
+                         'result': 'measure', 'determinand.unit.label': 'unit_of_measure',
+                         'sample.samplingPoint.notation': 'sampling_point_id',
+                         'sample.samplingPoint.easting': 'easting', 'sample.samplingPoint.northing': 'northing',
+                         'sample.sampledMaterialType.label': 'sampled_material_type_desc',
+                         'sample.isComplianceSample': 'is_compliance_sample',
+                         'sample.purpose.label': 'sample_purpose_desc'}
+
         self.__streams = src.functions.streams.Streams()
 
     @staticmethod
