@@ -35,3 +35,18 @@ class Streams:
             return f'{name}: succeeded'
         except OSError as err:
             raise Exception(err.strerror) from err
+
+    @staticmethod
+    def read(url, header: int = 0, usecols: list = None) -> pd.DataFrame:
+        """
+
+        :param url:
+        :param header:
+        :param usecols:
+        :return:
+        """
+
+        try:
+            return pd.read_csv(filepath_or_buffer=url, header=header, usecols=usecols, encoding='utf-8')
+        except ImportError as err:
+            raise Exception(err)
