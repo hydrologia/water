@@ -66,7 +66,7 @@ class Measurements:
             .drop(columns='purpose_desc')
 
     @dask.delayed
-    def __write(self, blob: pd.DataFrame, year: int, area: str):
+    def __write(self, blob: pd.DataFrame, year: int, area: str) -> str:
         """
 
         :param blob:
@@ -76,7 +76,7 @@ class Measurements:
         """
 
         path = self.__pathstr.format(year=year, area=area)
-        self.__streams.write(data=blob, path=path)
+        return self.__streams.write(data=blob, path=path)
 
     def exc(self, years: np.ndarray, areas: np.ndarray):
         """
@@ -93,4 +93,11 @@ class Measurements:
                 readings = self.__readings(query=query)
                 renamed = self.__rename(blob=readings)
                 structured = self.__structure(blob=renamed)
-                self.__write(blob=structured, year=year, area=area)
+                message = self.__write(blob=structured, year=year, area=area)
+
+                computation.append(message)
+
+        dask.visualize(computation, filename='integrity', format='pdf')
+        calculations = dask.compute(computation, scheduler='threads')[0]
+
+        return calculations
