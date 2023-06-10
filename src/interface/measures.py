@@ -25,7 +25,7 @@ class Measures:
         self.__endpoint = configurations.endpoint
 
     @staticmethod
-    def __read(url) -> pd.DataFrame:
+    def __read(url, usecols: list = None) -> pd.DataFrame:
         """
 
         :param url:
@@ -36,7 +36,7 @@ class Measures:
 
         try:
             if response.status_code == 200:
-                frame = pd.read_csv(filepath_or_buffer=url)
+                frame = pd.read_csv(filepath_or_buffer=url, usecols=usecols)
             else:
                 frame = pd.DataFrame()
         except RuntimeError as err:
