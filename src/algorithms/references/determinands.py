@@ -7,7 +7,7 @@ import pandas as pd
 
 import config
 import src.functions.streams
-import src.interface.measures
+import src.interface.integrity
 import src.configuration.references
 
 
@@ -65,7 +65,7 @@ class Determinands:
         :return:
         """
 
-        frame: pd.DataFrame = src.interface.measures.Measures().exc(
+        frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
             affix=self.__references.affix)
 
         # Keep a copy of the raw data
