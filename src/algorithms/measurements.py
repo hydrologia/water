@@ -22,7 +22,8 @@ class Measurements:
 
         self.__streams = src.functions.streams.Streams()
 
-    def __areas(self) -> np.ndarray:
+    @staticmethod
+    def __areas() -> np.ndarray:
 
         filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
 
