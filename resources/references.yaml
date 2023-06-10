@@ -17,3 +17,6 @@ nodes:
   - code: sampling_point
     affix: "/id/sampling-point.csv"
     basename: "sampling_point.csv"
+  - code: purposes
+    affix: "/def/purposes.csv"
+    basename: "purposes.csv"
