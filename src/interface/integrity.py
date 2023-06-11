@@ -1,14 +1,14 @@
 """
-measures.py
+integrity.py
 """
-
+import logging
 import requests
 import pandas as pd
 
 import config
 
 
-class Measures:
+class Integrity:
     """
     Class Measures
     """
@@ -20,12 +20,16 @@ class Measures:
         :return:
         """
 
+        logging.basicConfig(level=logging.INFO, format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
+                            datefmt='%Y-%m-%d %H:%M:%S')
+        self.__logger = logging.getLogger(__name__)
+
         # The environment agency's water quality API (Application Programming Interface) endpoint
         configurations = config.Config()
         self.__endpoint = configurations.endpoint
 
     @staticmethod
-    def __read(url) -> pd.DataFrame:
+    def __read(url, usecols: list = None) -> pd.DataFrame:
         """
 
         :param url:
@@ -36,7 +40,7 @@ class Measures:
 
         try:
             if response.status_code == 200:
-                frame = pd.read_csv(filepath_or_buffer=url)
+                frame = pd.read_csv(filepath_or_buffer=url, usecols=usecols)
             else:
                 frame = pd.DataFrame()
         except RuntimeError as err:
@@ -44,13 +48,13 @@ class Measures:
 
         return frame
 
-    def exc(self, affix: str = '', query: str = '') -> pd.DataFrame:
+    def exc(self, affix: str = '', query: str = '', usecols: list = None) -> pd.DataFrame:
         """
 
         :return:
         """
 
         url = self.__endpoint.format(affix=affix, query=query)
-        print(url)
+        self.__logger.info(url)
 
-        return self.__read(url)
+        return self.__read(url=url, usecols=usecols)

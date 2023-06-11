@@ -4,14 +4,16 @@ config.py
 import collections
 import os
 
+import numpy as np
+
 
 class Config:
     """
     The project's global configurations
 
     """
-    ReferenceDirectory = collections.namedtuple(
-        typename='ReferenceDirectory', field_names=['raw', 'structured'])
+    AssetDirectory = collections.namedtuple(
+        typename='AssetDirectory', field_names=['raw', 'structured'])
 
     def __init__(self):
         """
@@ -29,15 +31,26 @@ class Config:
         self.Reference_ = collections.namedtuple(
             typename='Reference_', field_names=['code', 'affix', 'basename'])
 
-    def references(self) -> ReferenceDirectory:
+        # Years
+        self.years = np.arange(2000, 2024)
+
+    def references(self) -> AssetDirectory:
         """
 
         :return:
         """
 
         # The reference data directories.
-        directory = self.ReferenceDirectory(
+        directory = self.AssetDirectory(
             raw=os.path.join(os.getcwd(), 'data', 'references'),
             structured=os.path.join(os.getcwd(), 'warehouse', 'references'))
+
+        return directory
+
+    def measurements(self) -> AssetDirectory:
+
+        directory = self.AssetDirectory(
+            raw=os.path.join(os.getcwd(), 'data', 'measurements'),
+            structured=os.path.join(os.getcwd(), 'warehouse', 'measurements'))
 
         return directory

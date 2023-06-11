@@ -7,7 +7,7 @@ import pandas as pd
 
 import config
 import src.functions.streams
-import src.interface.measures
+import src.interface.integrity
 import src.configuration.references
 
 
@@ -25,7 +25,7 @@ class SamplingPointTypes:
         self.__fields = {'notation': 'sampling_point_type_id', 'label': 'sampling_point_type_desc',
                          'group': 'group', 'group.label': 'group_desc'}
 
-        # The API parameters of the determinands reference data
+        # The API parameters of the sampling point types reference data
         self.__references = src.configuration.references.References().exc(code="sampling_point_types")
 
         # Writing
@@ -35,20 +35,20 @@ class SamplingPointTypes:
         configurations = config.Config()
         self.__directory = configurations.references()
 
-    def __write(self, blob: pd.DataFrame, root: str):
+    def __write(self, blob: pd.DataFrame, root: str) -> str:
         """
 
-        :param blob:
-        :param root:
+        :param blob: The data being stored
+        :param root: The storage directory
         :return:
         """
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
+        return self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
 
     def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
-        :param blob:
+        :param blob: The data in focus
         :return:
         """
 
@@ -71,7 +71,7 @@ class SamplingPointTypes:
         :return:
         """
 
-        frame: pd.DataFrame = src.interface.measures.Measures().exc(
+        frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
             affix=self.__references.affix)
 
         # Keep a copy of the raw data

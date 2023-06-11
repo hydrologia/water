@@ -13,10 +13,11 @@ def main():
     :return:
     """
 
-    logger.info('measures')
-    messages = src.algorithms.interface.Interface().exc()
-    logger.info(type(messages))
-    logger.info(messages)
+    logger.info('references')
+
+    message = src.algorithms.references.interface.Interface().exc()
+
+    logger.info('Successful: %s', message)
 
 
 if __name__ == '__main__':
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.join(root, 'src'))
 
     # Threads
-    os.environ['NUMEXPR_MAX_THREADS'] = '13'
+    os.environ['NUMEXPR_MAX_THREADS'] = '8'
 
     # Logging
     logging.basicConfig(level=logging.INFO, format='\n\n%(message)s\n%(asctime)s.%(msecs)03d',
@@ -34,6 +35,5 @@ if __name__ == '__main__':
 
     # Classes
     import src.algorithms.references.interface
-    import src.algorithms.interface
 
     main()

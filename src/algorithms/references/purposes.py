@@ -1,8 +1,7 @@
 """
-area.py
+purposes.py
 """
 import os
-import logging
 
 import pandas as pd
 
@@ -12,9 +11,9 @@ import src.interface.integrity
 import src.configuration.references
 
 
-class Area:
+class Purposes:
     """
-    Class Area
+    Class Purposes
     """
 
     def __init__(self):
@@ -23,10 +22,10 @@ class Area:
         """
 
         # The reference's default field names, and alternative names
-        self.__fields = {'notation': 'area_id', 'label': 'area_desc'}
+        self.__fields = {'notation': 'purpose_id', 'label': 'purpose_desc'}
 
-        # The API parameters of the area reference data
-        self.__references = src.configuration.references.References().exc(code="environment_agency_area")
+        # The API parameters of the purposes reference data
+        self.__references = src.configuration.references.References().exc(code="purposes")
 
         # Writing
         self.__streams = src.functions.streams.Streams()
@@ -52,8 +51,8 @@ class Area:
         :return:
         """
 
-        # Focus, rename
-        frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
+        # Rename
+        frame: pd.DataFrame = blob.copy()
         frame.rename(columns=self.__fields, inplace=True)
 
         # Write
@@ -65,9 +64,8 @@ class Area:
         :return: Data extraction, structuring, and storage message
         """
 
-        # Unload the data via the application programming interface
         frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
-            affix=self.__references.affix)
+            affix=self.__references.affix, usecols=list(self.__fields.keys()))
 
         # Keep a copy of the raw data
         self.__write(blob=frame, root=self.__directory.raw)
