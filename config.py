@@ -32,7 +32,7 @@ class Config:
             typename='Reference_', field_names=['code', 'affix', 'basename'])
 
         # Years
-        self.years = np.arange(2000, 2005)
+        self.years = np.arange(2000, 2009)
 
     def references(self) -> AssetDirectory:
         """
