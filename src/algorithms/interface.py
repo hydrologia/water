@@ -1,3 +1,6 @@
+"""
+interface.py
+"""
 import os
 import numpy as np
 import pandas as pd
@@ -10,10 +13,13 @@ import src.algorithms.integrity
 
 
 class Interface:
+    """
+    Class Interface
+    """
 
     def __init__(self):
         """
-
+        The constructor
         """
 
         self.__years = config.Config().years
