@@ -37,6 +37,12 @@ class Integrity:
 
     @dask.delayed
     def __query(self, area: str, year: int) -> str:
+        """
+
+        :param area:
+        :param year:
+        :return:
+        """
 
         query = f'area={area}&isComplianceSample=false&year={year}'
 
@@ -44,10 +50,20 @@ class Integrity:
 
     @dask.delayed
     def __readings(self, query: str) -> pd.DataFrame:
+        """
+
+        :param query:
+        :return:
+        """
 
         return src.interface.integrity.Integrity().exc(affix=self.__affix, query=query)
 
     def __rename(self, blob: pd.DataFrame) -> pd.DataFrame:
+        """
+
+        :param blob:
+        :return:
+        """
 
         return blob.rename(columns=self.__fields)
 
@@ -81,6 +97,8 @@ class Integrity:
     def exc(self, years: np.ndarray, areas: np.ndarray):
         """
 
+        :param years:
+        :param areas:
         :return:
         """
 
