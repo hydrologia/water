@@ -51,7 +51,7 @@ class Interface:
         """
 
         filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
-        return self.__streams.read(url=filepath, usecols=['area_id']).array
+        return self.__streams.read(uri=filepath, usecols=['area_id']).array
 
     def __sampled_material_types(self) -> pd.DataFrame:
         """
@@ -60,7 +60,7 @@ class Interface:
         """
 
         filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'sampled_material_types.csv')
-        return self.__streams.read(url=filepath,
+        return self.__streams.read(uri=filepath,
                                    usecols=['sampled_material_type_id', 'sampled_material_type_desc'])
 
     def __purposes(self) -> pd.DataFrame:
@@ -70,7 +70,7 @@ class Interface:
         """
 
         filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'purposes.csv')
-        return self.__streams.read(url=filepath,
+        return self.__streams.read(uri=filepath,
                                    usecols=['purpose_id', 'purpose_desc'])
 
     def exc(self):
