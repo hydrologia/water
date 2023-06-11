@@ -35,20 +35,20 @@ class SamplingPointTypes:
         configurations = config.Config()
         self.__directory = configurations.references()
 
-    def __write(self, blob: pd.DataFrame, root: str):
+    def __write(self, blob: pd.DataFrame, root: str) -> str:
         """
 
-        :param blob:
-        :param root:
+        :param blob: The data being stored
+        :param root: The storage directory
         :return:
         """
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
+        return self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
 
     def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
-        :param blob:
+        :param blob: The data in focus
         :return:
         """
 
