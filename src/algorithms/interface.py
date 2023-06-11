@@ -2,14 +2,14 @@
 interface.py
 """
 import os
+
 import numpy as np
 import pandas as pd
-import dask
 
-import src.functions.directories
-import src.functions.streams
 import config
 import src.algorithms.integrity
+import src.functions.directories
+import src.functions.streams
 
 
 class Interface:
@@ -40,15 +40,10 @@ class Interface:
 
         directories = src.functions.directories.Directories()
 
-        for segment in self.__segments:
-
-            cleanup = [dask.delayed(directories.cleanup)(self.__pathstr.format(segment=segment, year=year))
-                       for year in self.__years]
-            create = [dask.delayed(directories.create)(self.__pathstr.format(segment=segment, year=year))
-                      for year in self.__years]
-
-            dask.compute(cleanup, scheduler='threads')
-            dask.compute(create, scheduler='threads')
+        [directories.cleanup(self.__pathstr.format(segment=segment, year=year))
+         for segment in self.__segments for year in self.__years]
+        [directories.create(self.__pathstr.format(segment=segment, year=year))
+         for segment in self.__segments for year in self.__years]
 
     def __areas(self) -> np.ndarray:
         """
@@ -57,7 +52,10 @@ class Interface:
         """
 
         filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
-        return self.__streams.read(uri=filepath, usecols=['area_id']).array
+        frame = self.__streams.read(uri=filepath, usecols=['area_id'])
+        areas = frame['area_id'].array
+
+        return areas[~areas.isin(['R'])]
 
     def __sampled_material_types(self) -> pd.DataFrame:
         """
@@ -90,5 +88,5 @@ class Interface:
 
         # Water integrity measures
         src.algorithms.integrity.Integrity(
-            sampled_material_types=self.__sampled_material_types(), purposes=self.__purposes())\
+            sampled_material_types=self.__sampled_material_types(), purposes=self.__purposes()) \
             .exc(years=self.__years, areas=self.__areas())
