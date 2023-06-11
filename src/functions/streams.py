@@ -19,8 +19,8 @@ class Streams:
     @staticmethod
     def write(data: pd.DataFrame, path: str) -> str:
         """
-        :param data:
-        :param path:
+        :param data: The data being stored; in a `csv` file.
+        :param path: The path + file + extension string.
         :return:
         """
 
@@ -37,16 +37,16 @@ class Streams:
             raise Exception(err.strerror) from err
 
     @staticmethod
-    def read(url, header: int = 0, usecols: list = None) -> pd.DataFrame:
+    def read(uri: str, header: int = 0, usecols: list = None) -> pd.DataFrame:
         """
 
-        :param url:
-        :param header:
-        :param usecols:
+        :param uri: The uniform resource identifier; path + file + extension string.
+        :param header: The header row of the `csv` file
+        :param usecols: The fields in focus
         :return:
         """
 
         try:
-            return pd.read_csv(filepath_or_buffer=url, header=header, usecols=usecols, encoding='utf-8')
+            return pd.read_csv(filepath_or_buffer=uri, header=header, usecols=usecols, encoding='utf-8')
         except ImportError as err:
             raise Exception(err)
