@@ -1,3 +1,6 @@
+"""
+integrity.py
+"""
 import collections
 import os
 
@@ -19,21 +22,17 @@ class Integrity:
         """
 
         self.__sampled_material_types = sampled_material_types
-
         self.__purposes = purposes
 
         self.__affix = '/data/measurement.csv'
-
-        self.__fields = {'determinand.notation': 'determinand_id', 'sample.sampleDateTime': 'datetime',
-                         'result': 'measure', 'determinand.unit.label': 'unit_of_measure',
-                         'sample.samplingPoint.notation': 'sampling_point_id',
-                         'sample.samplingPoint.easting': 'easting', 'sample.samplingPoint.northing': 'northing',
-                         'sample.sampledMaterialType.label': 'sampled_material_type_desc',
-                         'sample.isComplianceSample': 'is_compliance_sample',
-                         'sample.purpose.label': 'purpose_desc'}
+        self.__fields = {
+            'determinand.notation': 'determinand_id', 'sample.sampleDateTime': 'datetime', 'result': 'measure',
+            'determinand.unit.label': 'unit_of_measure', 'sample.samplingPoint.notation': 'sampling_point_id',
+            'sample.samplingPoint.easting': 'easting', 'sample.samplingPoint.northing': 'northing',
+            'sample.sampledMaterialType.label': 'sampled_material_type_desc',
+            'sample.isComplianceSample': 'is_compliance_sample', 'sample.purpose.label': 'purpose_desc'}
 
         self.__streams = src.functions.streams.Streams()
-
         self.__pathstr = os.path.join(os.getcwd(), 'warehouse', 'integrity', '{year}', '{area}.csv')
 
     @dask.delayed
@@ -113,7 +112,6 @@ class Integrity:
             renamed = self.__rename(blob=readings)
             structured = self.__structure(blob=renamed)
             message = self.__write(blob=structured, year=x.year, area=x.area)
-
             computation.append(message)
 
         dask.visualize(computation, filename='integrity', format='pdf')
