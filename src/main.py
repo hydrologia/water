@@ -13,10 +13,7 @@ def main():
     :return:
     """
 
-    logger.info('water')
-    success = src.algorithms.references.interface.Interface().exc()
-    logger.info(success is True)
-
+    logger.info('measures')
     messages = src.algorithms.interface.Interface().exc()
     logger.info(type(messages))
     logger.info(messages)
