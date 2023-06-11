@@ -1,3 +1,4 @@
+import collections
 import os
 
 import dask
@@ -44,7 +45,7 @@ class Integrity:
         :return:
         """
 
-        query = f'area={area}&isComplianceSample=false&year={year}'
+        query = f'&area={area}&isComplianceSample=false&year={str(year)}'
 
         return query
 
@@ -102,19 +103,20 @@ class Integrity:
         :return:
         """
 
+        Doublet = collections.namedtuple(typename='Doublet', field_names=['year', 'area'])
+        doublet = [Doublet(year=year, area=area) for year in years for area in areas]
+
         computation = []
-        for year in years:
+        for x in doublet:
+            query = self.__query(area=x.area, year=x.year)
+            readings = self.__readings(query=query)
+            renamed = self.__rename(blob=readings)
+            structured = self.__structure(blob=renamed)
+            message = self.__write(blob=structured, year=x.year, area=x.area)
 
-            for area in areas:
-                query = self.__query(area=area, year=year)
-                readings = self.__readings(query=query)
-                renamed = self.__rename(blob=readings)
-                structured = self.__structure(blob=renamed)
-                message = self.__write(blob=structured, year=year, area=area)
-
-                computation.append(message)
+            computation.append(message)
 
         dask.visualize(computation, filename='integrity', format='pdf')
-        calculations = dask.compute(computation, scheduler='threads')[0]
+        calculations = dask.compute(computation, scheduler='processes')
 
         return calculations
