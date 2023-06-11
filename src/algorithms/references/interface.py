@@ -4,15 +4,14 @@ interface.py
 import pandas as pd
 
 import config
+import src.algorithms.references.area
 import src.algorithms.references.determinands
 import src.algorithms.references.purposes
 import src.algorithms.references.sampled_material_types
-import src.functions.directories
-
-import src.algorithms.references.area
-import src.algorithms.references.subarea
-import src.algorithms.references.sampling_point_types
 import src.algorithms.references.sampling_point
+import src.algorithms.references.sampling_point_types
+import src.algorithms.references.subarea
+import src.functions.directories
 
 
 class Interface:
@@ -37,7 +36,7 @@ class Interface:
             directories.create(path)
 
     @staticmethod
-    def exc() -> bool:
+    def exc() -> str:
         """
 
         :return:
@@ -50,7 +49,5 @@ class Interface:
         sampling_point_types: pd.DataFrame = src.algorithms.references.sampling_point_types.SamplingPointTypes().exc()
         subarea: pd.DataFrame = src.algorithms.references.subarea.Subarea().exc()
 
-        src.algorithms.references.sampling_point.SamplingPoint().exc(
+        return src.algorithms.references.sampling_point.SamplingPoint().exc(
             subarea=subarea, sampling_point_types=sampling_point_types)
-
-        return True
