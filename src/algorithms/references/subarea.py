@@ -38,8 +38,8 @@ class Subarea:
     def __write(self, blob: pd.DataFrame, root: str):
         """
 
-        :param blob:
-        :param root:
+        :param blob: The data being stored
+        :param root: The storage directory
         :return:
         """
 
@@ -48,7 +48,7 @@ class Subarea:
     def __structure(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
 
-        :param blob:
+        :param blob: The data in focus
         :return:
         """
 
