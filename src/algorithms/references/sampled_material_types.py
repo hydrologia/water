@@ -34,20 +34,20 @@ class SamplingMaterialTypes:
         configurations = config.Config()
         self.__directory = configurations.references()
 
-    def __write(self, blob: pd.DataFrame, root: str):
+    def __write(self, blob: pd.DataFrame, root: str) -> str:
         """
 
-        :param blob:
-        :param root:
+        :param blob: The data being stored
+        :param root: The storage directory
         :return:
         """
 
-        self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
+        return self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
 
-    def __structure(self, blob: pd.DataFrame):
+    def __structure(self, blob: pd.DataFrame) -> str:
         """
 
-        :param blob:
+        :param blob: The data in focus
         :return:
         """
 
@@ -59,12 +59,12 @@ class SamplingMaterialTypes:
         frame.loc[:, 'sampled_material_type_id'] = frame['sampled_material_type_id'].str.strip().str.upper().array
 
         # Write
-        self.__write(blob=frame, root=self.__directory.structured)
+        return self.__write(blob=frame, root=self.__directory.structured)
 
-    def exc(self):
+    def exc(self) -> str:
         """
 
-        :return:
+        :return: Data extraction, structuring, and storage message
         """
 
         frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
@@ -74,4 +74,4 @@ class SamplingMaterialTypes:
         self.__write(blob=frame, root=self.__directory.raw)
 
         # Structure and save
-        self.__structure(blob=frame)
+        return self.__structure(blob=frame)
