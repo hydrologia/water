@@ -51,7 +51,7 @@ class Interface:
         :return:
         """
 
-        filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'environment_agency_area.csv')
+        filepath = os.path.join(os.getcwd(), 'warehouse', '../algorithms/references', 'environment_agency_area.csv')
         frame = self.__streams.read(uri=filepath, usecols=['area_id'])
         areas = frame['area_id'].array
 
@@ -63,7 +63,7 @@ class Interface:
         :return:
         """
 
-        filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'sampled_material_types.csv')
+        filepath = os.path.join(os.getcwd(), 'warehouse', '../algorithms/references', 'sampled_material_types.csv')
         return self.__streams.read(uri=filepath,
                                    usecols=['sampled_material_type_id', 'sampled_material_type_desc'])
 
@@ -73,7 +73,7 @@ class Interface:
         :return:
         """
 
-        filepath = os.path.join(os.getcwd(), 'warehouse', 'references', 'purposes.csv')
+        filepath = os.path.join(os.getcwd(), 'warehouse', '../algorithms/references', 'purposes.csv')
         return self.__streams.read(uri=filepath,
                                    usecols=['purpose_id', 'purpose_desc'])
 
