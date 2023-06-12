@@ -15,7 +15,7 @@ def main():
 
     logger.info('references')
 
-    message = src.algorithms.references.interface.Interface().exc()
+    message = src.elements.references.interface.Interface().exc()
 
     logger.info('Successful: %s', message)
 
@@ -34,6 +34,6 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # Classes
-    import src.algorithms.references.interface
+    import src.elements.references.interface
 
     main()
