@@ -63,3 +63,4 @@ class Stations:
 
         # Decomposing
         data.loc[:, 'type'] = data['type'].apply(lambda x: self.__types(x))
+        self.__logger.info(data[['label', 'notation', 'easting', 'northing', 'type']])
