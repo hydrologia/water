@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 import config
-import src.algorithms.integrity
+import src.elements.integrity
 import src.functions.directories
 import src.functions.streams
 
@@ -87,6 +87,6 @@ class Interface:
         self.__directories()
 
         # Water integrity measures
-        src.algorithms.integrity.Integrity(
+        src.elements.integrity.Integrity(
             sampled_material_types=self.__sampled_material_types(), purposes=self.__purposes()) \
             .exc(years=self.__years, areas=self.__areas())
