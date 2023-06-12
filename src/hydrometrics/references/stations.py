@@ -1,4 +1,4 @@
-
+import os
 import logging
 import requests
 import pandas as pd
@@ -38,8 +38,20 @@ class Stations:
         else:
             raise Exception(f'Failure code: {response.status_code}')
 
+    @staticmethod
+    def __types(nodes):
+        """
+
+        :param nodes:
+        :return:
+        """
+
+        return [os.path.basename(list(node.values())[0])
+                for node in nodes]
+
     def exc(self):
         """
+        ['label', 'notation', 'easting', 'northing', 'lat', 'long', 'type']
 
         :return:
         """
@@ -47,6 +59,7 @@ class Stations:
         response = self.__read()
         blob = response.json()
         data = pd.json_normalize(data=blob, record_path='items')
-
         data.info()
-        self.__logger.info(data.head())
+
+        # Decomposing
+        data.loc[:, 'type'] = data['type'].apply(lambda x: self.__types(x))
