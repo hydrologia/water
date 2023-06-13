@@ -39,7 +39,7 @@ class Stations:
             raise Exception(f'Failure code: {response.status_code}')
 
     @staticmethod
-    def __types(nodes):
+    def __types(nodes: list) -> list:
         """
 
         :param nodes:
@@ -48,6 +48,11 @@ class Stations:
 
         return [os.path.basename(list(node.values())[0])
                 for node in nodes]
+
+    @staticmethod
+    def __membership(categories: list, category: str) -> bool:
+
+        return category in categories
 
     def exc(self):
         """
@@ -63,4 +68,5 @@ class Stations:
 
         # Decomposing
         data.loc[:, 'type'] = data['type'].apply(lambda x: self.__types(x))
-        self.__logger.info(data[['label', 'notation', 'easting', 'northing', 'type']])
+        data.loc[:, 'is_station'] = data['type'].apply(lambda x: self.__membership(x, 'Station'))
+        self.__logger.info(data[['label', 'notation', 'type', 'is_station']])
