@@ -69,4 +69,5 @@ class Stations:
         # Decomposing
         data.loc[:, 'type'] = data['type'].apply(lambda x: self.__types(x))
         data.loc[:, 'is_station'] = data['type'].apply(lambda x: self.__membership(x, 'Station'))
-        self.__logger.info(data[['label', 'notation', 'type', 'is_station']])
+        data.loc[:, 'is_integrity_station'] = data['type'].apply(lambda x: self.__membership(x, 'WaterQualityStation'))
+        self.__logger.info(data[['label', 'notation', 'type', 'is_station', 'is_integrity_station']])
