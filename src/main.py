@@ -14,7 +14,7 @@ def main():
     """
 
     logger.info('measures')
-    messages = src.algorithms.interface.Interface().exc()
+    messages = src.elements.interface.Interface().exc()
     logger.info(type(messages))
     logger.info(messages)
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # Classes
-    import src.algorithms.references.interface
-    import src.algorithms.interface
+    import src.elements.references.interface
+    import src.elements.interface
 
     main()

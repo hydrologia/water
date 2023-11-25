@@ -1,0 +1,76 @@
+"""
+area.py
+"""
+import os
+import logging
+
+import pandas as pd
+
+import config
+import src.functions.streams
+import src.interface.integrity
+import src.configuration.references
+
+
+class Area:
+    """
+    Class Area
+    """
+
+    def __init__(self):
+        """
+        The constructor
+        """
+
+        # The reference's default field names, and alternative names
+        self.__fields = {'notation': 'area_id', 'label': 'area_desc'}
+
+        # The API parameters of the area reference data
+        self.__references = src.configuration.references.References().exc(code="environment_agency_area")
+
+        # Writing
+        self.__streams = src.functions.streams.Streams()
+
+        # self.__directory hosts the directory names for raw & structured reference data.
+        configurations = config.Config()
+        self.__directory = configurations.references()
+
+    def __write(self, blob: pd.DataFrame, root: str) -> str:
+        """
+
+        :param blob: The data being stored
+        :param root: The storage directory
+        :return:
+        """
+
+        return self.__streams.write(data=blob, path=os.path.join(root, f'{self.__references.basename}'))
+
+    def __structure(self, blob: pd.DataFrame) -> str:
+        """
+
+        :param blob: The data in focus
+        :return:
+        """
+
+        # Focus, rename
+        frame: pd.DataFrame = blob.copy()[self.__fields.keys()]
+        frame.rename(columns=self.__fields, inplace=True)
+
+        # Write
+        return self.__write(blob=frame, root=self.__directory.structured)
+
+    def exc(self) -> str:
+        """
+
+        :return: Data extraction, structuring, and storage message
+        """
+
+        # Unload the data via the application programming interface
+        frame: pd.DataFrame = src.interface.integrity.Integrity().exc(
+            affix=self.__references.affix)
+
+        # Keep a copy of the raw data
+        self.__write(blob=frame, root=self.__directory.raw)
+
+        # Structure and save
+        return self.__structure(blob=frame)
